@@ -1,9 +1,14 @@
-const express = require('express')
+const express = require("express"),
+  config = require("config"),
+  debug = require('./util/debug')
 
-const app = express()
+const app = express();
 
-app.get('/', (req,res, next) => {
-    res.send("Server started!")
-})
+debug.label("Flip and learn")
 
-app.listen(5000)
+debug.log(`Spinning up the server...`)
+const server = app.listen(config.server.port, () =>
+  debug.info(config.server.messages.wake + config.server.port)
+);
+
+module.exports.app = app;
